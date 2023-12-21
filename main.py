@@ -8,6 +8,7 @@ from d15 import d15
 from d16 import d16
 from d17 import d17
 from d18 import d18
+from d19 import d19
 from d2 import d2
 from d3 import d3
 from d4 import d4
@@ -35,4 +36,5 @@ if __name__ == "__main__":
     # d15()
     # d16()
     # d17()
-    d18()
+    # d18()
+    d19()
