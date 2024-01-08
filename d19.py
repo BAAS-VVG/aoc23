@@ -70,24 +70,24 @@ def d19():
             if name == "in":  # to circumvent the keyword 'in'
                 name = "innn"
 
-            func = "def " + name + "2(mp):\n"
+            func = "def " + name + "(mp):\n"
             func += " remm = copy.deepcopy(mp)\n"
             func += " total = 0\n"
             for line in body.split(','):
                 if ':' in line:
                     func += " resm = splitrange(remm, \"" + line.split(':')[0] + '\")\n'
-                    func += " total += " + line.split(':')[1] + "2(resm)\n"
+                    func += " total += " + line.split(':')[1] + "(resm)\n"
                 else:
-                    func += " return total + " + line + "2(remm)\n"
+                    func += " return total + " + line + "(remm)\n"
             exec(func, globals())
 
-    func = "def A2(mp):\n"
+    func = "def A(mp):\n"
     func += " res = 1\n"
     func += " for var in \"xmas\":\n"
     func += "  res *= mp[var][1] - mp[var][0] + 1\n"
     func += " return res\n"
     exec(func, globals())
-    func = "def R2(mp): return 0"
+    func = "def R(mp): return 0"
     exec(func, globals())
 
     mp = dict()
@@ -96,5 +96,5 @@ def d19():
     mp["a"] = (1, 4000)
     mp["s"] = (1, 4000)
 
-    print(innn2(mp))
+    print(innn(mp))
 
