@@ -1,9 +1,30 @@
-def A(part):
-    return True
+import copy
 
 
-def R(part):
-    return False
+def splitrange(remm, line):
+    var = line[0]
+    sign = line[1]
+    val = int(line[2:])
+    resm = copy.deepcopy(remm)
+    if sign == '<':
+        if val < remm[var][0]:
+            resm[var] = tuple([0, 0])
+            return resm
+        if val >= remm[var][1]:
+            remm[var] = tuple([0, 0])
+            return resm
+        resm[var] = tuple([remm[var][0], val - 1])
+        remm[var] = tuple([val, remm[var][1]])
+        return resm
+    if val > remm[var][1]:
+        resm[var] = tuple([0, 0])
+        return resm
+    if val <= remm[var][0]:
+        remm[var] = tuple([0, 0])
+        return resm
+    resm[var] = tuple([val + 1, remm[var][1]])
+    remm[var] = tuple([remm[var][0], val])
+    return resm
 
 
 def d19():
@@ -28,20 +49,52 @@ def d19():
                     func += " return " + line + "(part)\n"
             exec(func, globals())
 
-        res = 0
-        for part in parts.strip().split('\n'):
-            part = [int(i) for i in ''.join((c if c in '0123456789' else ' ') for c in part).split()]
-            if innn(part):
-                res += sum(part)
+    func = "def A(part): return True"
+    exec(func, globals())
+    func = "def R(part): return False"
+    exec(func, globals())
 
-        print(res)
+    res = 0
+    for part in parts.strip().split('\n'):
+        part = [int(i) for i in ''.join((c if c in '0123456789' else ' ') for c in part).split()]
+        if innn(part):
+            res += sum(part)
 
-        res = 0
-        for x in range(1, 4001):
-            for m in range(1, 4001):
-                for a in range(1, 4001):
-                    for s in range(1, 4001):
-                        if innn((x, m, a, s)):
-                            res += 1
+    print(res)
 
-        print(res)
+    with open(inputfile) as f:
+        manual = f.read().split('\n\n')[0]
+        for rule in manual.split('\n'):
+            name, body = rule.strip('}').split('{')
+
+            if name == "in":  # to circumvent the keyword 'in'
+                name = "innn"
+
+            func = "def " + name + "2(mp):\n"
+            func += " remm = copy.deepcopy(mp)\n"
+            func += " total = 0\n"
+            for line in body.split(','):
+                if ':' in line:
+                    func += " resm = splitrange(remm, \"" + line.split(':')[0] + '\")\n'
+                    func += " total += " + line.split(':')[1] + "2(resm)\n"
+                else:
+                    func += " return total + " + line + "2(remm)\n"
+            exec(func, globals())
+
+    func = "def A2(mp):\n"
+    func += " res = 1\n"
+    func += " for var in \"xmas\":\n"
+    func += "  res *= mp[var][1] - mp[var][0] + 1\n"
+    func += " return res\n"
+    exec(func, globals())
+    func = "def R2(mp): return 0"
+    exec(func, globals())
+
+    mp = dict()
+    mp["x"] = (1, 4000)
+    mp["m"] = (1, 4000)
+    mp["a"] = (1, 4000)
+    mp["s"] = (1, 4000)
+
+    print(innn2(mp))
+
