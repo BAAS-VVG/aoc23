@@ -28,6 +28,7 @@ def splitrange(remm, line):
 
 
 def d19():
+    print("d19")
     inputfile = "d19.txt"
     # inputfile = "test.txt"
 

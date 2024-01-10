@@ -43,6 +43,7 @@ def findpath(grid, slim, clim):
 
 
 def d17():
+    print("d17")
     inputfile = "d17.txt"
     # inputfile = "test.txt"
 

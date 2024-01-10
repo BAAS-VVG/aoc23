@@ -39,6 +39,7 @@ def calcline(grid, part2=False):
 
 
 def d13():
+    print("d13")
     inputfile = "d13.txt"
     # inputfile = "test.txt"
 

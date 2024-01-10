@@ -56,6 +56,7 @@ class Conjunction(Module):
 
 
 def d20():
+    print("d20")
     inputfile = "d20.txt"
     # inputfile = "test.txt"
 

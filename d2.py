@@ -17,6 +17,7 @@ def possible(games):
 
 
 def d2():
+    print("d2")
     inputfile = "d2.txt"
     # inputfile = "test.txt"
 

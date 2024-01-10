@@ -66,6 +66,7 @@ def makespring(spring, unknowns, lengths, lut):
 
 
 def d12():
+    print("d12")
     inputfile = "d12.txt"
     # inputfile = "test.txt"
 

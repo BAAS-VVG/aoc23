@@ -13,6 +13,7 @@ def getObstacles(coord):
 
 
 def d10():
+    print("d10")
     inputfile = "d10.txt"
     # inputfile = "test.txt"
 

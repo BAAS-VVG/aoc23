@@ -28,6 +28,7 @@ def findright(grid, x, y):
 
 
 def d3():
+    print("d3")
     inputfile = "d3.txt"
     # inputfile = "test.txt"
 

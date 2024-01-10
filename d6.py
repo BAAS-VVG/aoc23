@@ -2,6 +2,7 @@ import math
 
 
 def d6():
+    print("d6")
     inputfile = "d6.txt"
     # inputfile = "test.txt"
 

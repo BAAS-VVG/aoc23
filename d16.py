@@ -59,6 +59,7 @@ def getstarts(grid):
 
 
 def d16():
+    print("d16")
     inputfile = "d16.txt"
     # inputfile = "test.txt"
 

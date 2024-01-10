@@ -12,6 +12,7 @@ from d19 import d19
 from d2 import d2
 from d20 import d20
 from d21 import d21
+from d22 import d22
 from d3 import d3
 from d4 import d4
 from d5 import d5
@@ -41,4 +42,6 @@ if __name__ == "__main__":
     # d18()
     # d19()
     # d20()
-    d21()
+    # d21()
+    d22()
+

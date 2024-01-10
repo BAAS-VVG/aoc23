@@ -2,6 +2,7 @@ import math
 
 
 def d8():
+    print("d8")
     inputfile = "d8.txt"
     # inputfile = "test.txt"
 

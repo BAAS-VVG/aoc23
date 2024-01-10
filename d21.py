@@ -3,6 +3,8 @@ from queue import Queue
 
 
 def d21():
+    print("d21")
+
     def solve(step, startpos):
         visited = set()
         res = set()

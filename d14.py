@@ -28,6 +28,7 @@ def rotc(grid):
 
 
 def d14():
+    print("d14")
     inputfile = "d14.txt"
     # inputfile = "test.txt"
     cyclelen = 1000000000

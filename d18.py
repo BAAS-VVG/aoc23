@@ -2,6 +2,7 @@ from shapely.geometry import Polygon
 
 
 def d18():
+    print("d18")
     inputfile = "d18.txt"
     # inputfile = "test.txt"
 

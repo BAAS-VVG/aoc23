@@ -7,6 +7,7 @@ def part1(line):
 
 
 def d4():
+    print("d4")
     filename = "d4.txt"
     # filename = "test.txt"
 

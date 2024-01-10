@@ -16,6 +16,7 @@ def prevValue(arr):
 
 
 def d9():
+    print("d9")
     inputfile = "d9.txt"
     # inputfile = "test.txt"
 

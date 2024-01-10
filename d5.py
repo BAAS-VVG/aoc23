@@ -51,6 +51,7 @@ def seedranges(seeds):
 
 
 def d5():
+    print("d5")
     inputfile = "d5.txt"
     # inputfile = "test.txt"
 

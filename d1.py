@@ -1,4 +1,5 @@
 def d1():
+    print("d1")
     inputfile = "d1.txt"
     # inputfile = "test.txt"
 

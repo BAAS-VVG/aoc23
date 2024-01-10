@@ -3,6 +3,7 @@ import re
 
 
 def d15():
+    print("d15")
     inputfile = "d15.txt"
     # inputfile = "test.txt"
 
