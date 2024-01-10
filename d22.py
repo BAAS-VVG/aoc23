@@ -1,7 +1,8 @@
+from collections import defaultdict
+from queue import Queue
+
+
 # AABB collision check on x and y axes.
-import copy
-
-
 def cansupport(b1, b2):
     return b1[0][0] <= b2[1][0] and b2[0][0] <= b1[1][0] and b1[0][1] <= b2[1][1] and b2[0][1] <= b1[1][1]
 
@@ -13,21 +14,23 @@ def doessupport(b1, b2):
 
 def checksupports(blocks):
     res = set()
-    tower = {}
+    above = defaultdict(set)
+    below = {}
     for i, block in enumerate(blocks):
         j = i - 1
         supports = []
         while j >= 0:
             if doessupport(blocks[j], block):
                 supports.append(blocks[j])
+                above[blocks[j]].add(block)
             j -= 1
 
         if len(supports) == 1:
-            res.add(tuple([tuple(c) for c in supports[0]]))
+            res.add(supports[0])
 
-        tower[tuple([tuple(c) for c in block])] = [tuple([tuple(c) for c in b] for b in sorted(supports, key=lambda x: x[0][2]))]
+        below[block] = set([s for s in supports])
 
-    return tower, res
+    return below, above, res
 
 
 def fall(blocks):
@@ -69,23 +72,28 @@ def d22():
 
     blocks.sort(key=lambda x: x[0][2])
     fall(blocks)
+    blocks = [tuple(tuple(c) for c in b) for b in blocks]
     blocks.sort(key=lambda x: x[0][2])
-    tower, supports = checksupports(blocks)  # tower[block] == [below]
+    below, above, supports = checksupports(blocks)
 
     print(len(blocks) - len(supports))
 
-    # for supp in supports:
-    #     fallen = set()
-    #     fallen.add(supp)
-    #     for block in blocks:
-    #         if # TODO make non-naive part 2
-
-    # naive part 2
+    # part 2
+    queue = Queue()
     res = 0
-    for support in supports:
-        test = copy.deepcopy(blocks)
-        test.remove([[c for c in b] for b in support])
-        res += fall(test)
+    for supp in supports:
+        fallen = set()
+        for ab in above[supp]:
+            queue.put(ab)
+        fallen.add(supp)
+        while not queue.empty():
+            bl = queue.get()
+            if below[bl].issubset(fallen):
+                fallen.add(bl)
+                for ab in above[bl]:
+                    queue.put(ab)
+
+        res += len(fallen) - 1
 
     print(res)
 
