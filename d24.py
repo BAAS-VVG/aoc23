@@ -45,14 +45,10 @@ def d24():
                     h0 = Ray(hailstones[0].p[:2], [p + o for p, o in zip(hailstones[0].points[1][:2], [X, Y])])
                     intersection = None
                     Z = None
-                    times = []
                     for n, hN in enumerate([Ray(h.p[:2], [p + o for p, o in zip(h.points[1][:2], [X, Y])]) for h in hailstones[1:4]]):
                         t1, t2, status = intersect(h0, hN)
                         currIntersection = None
                         currZ = None
-                        if len(times) == 0:
-                            times.append(t1)
-                        times.append(t2)
                         if status == RayIntersection.COLINEAR or t1 < -0.0 or t2 < -0.0:
                             break
                         currIntersection = [round(x) for x in hN.eval(t2)]
