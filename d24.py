@@ -34,17 +34,43 @@ def d24():
             pos, vec = [[int(c) for c in v.split(',')] for v in line.strip().split('@')]
             hailstones.append(Ray(pos, [p + d for p, d in zip(pos, vec)]))
 
-    # find x, y, z, vx, vy, vz from all inputs as a function of t
-    # Rp + t1 * Rv = H1p + t1 * H1v
-    # Rp + t2 * Rv = H2p + t2 * H2v
-    # Rp + t3 * Rv = H3p + t3 * H3v
-    # Rp = H1p + t1 * (-Rv + H1v)
-    # Rp = H2p + t2 * (-Rv + H2v)
-    # Rp = H3p + t3 * (-Rv + H3v)
-    #
-    # H1p + t1 * (-Rv + H1v) == H2p + t2 * (-Rv + H2v)
-    # H1p - H2p == t2 * (-Rv + H2v) - t1 * (-Rv + H1v)
-    # Rv = (t1 * H1v - t2 * H2v + H1p - H2p) / (t1 - t2)
+    offset = 0
+    while True:
+        for xOffset in range(offset + 1):
+            yOffset = offset - xOffset
+            for negX in (-1, 1):
+                X = negX * xOffset
+                for negY in (-1, 1):
+                    Y = negY * yOffset
+                    h0 = Ray(hailstones[0].p[:2], [p + o for p, o in zip(hailstones[0].points[1][:2], [X, Y])])
+                    intersection = None
+                    Z = None
+                    times = []
+                    for n, hN in enumerate([Ray(h.p[:2], [p + o for p, o in zip(h.points[1][:2], [X, Y])]) for h in hailstones[1:4]]):
+                        t1, t2, status = intersect(h0, hN)
+                        currIntersection = None
+                        currZ = None
+                        if len(times) == 0:
+                            times.append(t1)
+                        times.append(t2)
+                        if status == RayIntersection.COLINEAR or t1 < -0.0 or t2 < -0.0:
+                            break
+                        currIntersection = [round(x) for x in hN.eval(t2)]
+                        currZ = round((hailstones[0].p[2] - hailstones[n + 1].p[2] + t1 * hailstones[0].d[2] - t2 * hailstones[n + 1].d[2]) / (t1 - t2))
+                        if intersection is None:
+                            intersection = currIntersection
+                            Z = currZ
+                            continue
+                        if currIntersection != intersection or Z != currZ:
+                            break
+                    if currIntersection is None or intersection != currIntersection or Z != currZ:
+                        continue
+
+                    h0 = Ray(hailstones[0].p, [p + o for p, o in zip(hailstones[0].points[1], [X, Y, -Z])])
+                    intersection = [round(x) for x in h0.eval(t1)]
+                    print(sum(intersection))
+                    return
+        offset += 1
 
 
 
