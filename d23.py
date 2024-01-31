@@ -75,8 +75,18 @@ def d23():
             if pos[1] == height - 1:
                 maxdist = max(maxdist, dist)
                 continue
-            ## TODO: optimisation doesnt produce correct answer!
-            for dir in range(4 if part2 and not any([p is None for p in graph[pos]]) else 2):  # optimisation in https://www.reddit.com/r/adventofcode/comments/18oy4pc/comment/kfyvp2g/
+
+            dirs = list(range(2))
+            if part2:
+                dirs = list(range(4))
+                # optimisation in https://www.reddit.com/r/adventofcode/comments/18oy4pc/comment/kfyvp2g/
+                if any([p is None for p in graph[pos]]):
+                    if graph[pos].index(None) % 2:
+                        dirs.remove(2)
+                    else:
+                        dirs.remove(3)
+
+            for dir in dirs:
                 if graph[pos][dir] is None:
                     continue
                 node, curdist = graph[pos][dir]
