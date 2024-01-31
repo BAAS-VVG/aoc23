@@ -76,7 +76,7 @@ def d23():
                 maxdist = max(maxdist, dist)
                 continue
 
-            for dir in range(4 if part2 else 2):
+            for dir in range(4 if part2 and not any([p is None for p in graph[pos]]) else 2):  # optimisation in https://www.reddit.com/r/adventofcode/comments/18oy4pc/comment/kfyvp2g/
                 if graph[pos][dir] is None:
                     continue
                 node, curdist = graph[pos][dir]
