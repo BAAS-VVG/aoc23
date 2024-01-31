@@ -75,7 +75,7 @@ def d23():
             if pos[1] == height - 1:
                 maxdist = max(maxdist, dist)
                 continue
-
+            ## TODO: optimisation doesnt produce correct answer!
             for dir in range(4 if part2 and not any([p is None for p in graph[pos]]) else 2):  # optimisation in https://www.reddit.com/r/adventofcode/comments/18oy4pc/comment/kfyvp2g/
                 if graph[pos][dir] is None:
                     continue
